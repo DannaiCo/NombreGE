@@ -35,27 +35,19 @@
     }
 
     .mensaje {
-  position: absolute;
-  bottom: 37vh;      /* o el valor que necesites */
-  left: 50%;         /* Lo centramos horizontalmente */
-  transform: translateX(-50%); /* Ajusta el ancla al centro */
-  z-index: 2; 
-  font-weight: bold;
-  color: #E6736A;
-  font-size: 4.5vw;
-  font-style: normal;
-  font-family: "Fredoka", sans-serif;
-  opacity: 0;
-  transition: opacity 0.3s ease-in;
-  text-align: center; /* Importante si quieres multi-línea centrada */
-
-      /* ✅ Aplicar la fuente Fredoka */
+      position: absolute;
+      bottom: 37vh;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2; 
+      font-weight: bold;
+      color: #E6736A;
+      font-size: 4.5vw;
+      font-style: normal;
       font-family: "Fredoka", sans-serif;
-      font-optical-sizing: auto;
-      font-variation-settings: "wdth" 100;
-
       opacity: 0;
       transition: opacity 0.3s ease-in;
+      text-align: center;
     }
 
     .mensaje.mostrar {
@@ -84,25 +76,28 @@
         const contenedorMensaje = document.querySelector(".para");
 
         if (aprobados.length > 0) {
-          const elegido = aprobados[Math.floor(Math.random() * aprobados.length)];
-          contenedorMensaje.innerText = elegido.para.toUpperCase();
+          // 👉 función que elige aleatoriamente y muestra el mensaje
+          function mostrarAleatorio() {
+            const elegido = aprobados[Math.floor(Math.random() * aprobados.length)];
+            contenedorMensaje.classList.remove("mostrar"); // Ocultar antes de cambiar
+            setTimeout(() => {
+              contenedorMensaje.innerText = elegido.para.toUpperCase();
+              contenedorMensaje.classList.add("mostrar"); // Mostrar el nuevo
+            }, 300);
+          }
+
+          // Mostrar el primero
+          mostrarAleatorio();
+
+          // 👉 Cambiar cada 5 segundos
+          setInterval(mostrarAleatorio, 5000);
         } else {
           contenedorMensaje.innerText = "--";
-        }
-
-        setTimeout(() => {
           contenedorMensaje.classList.add("mostrar");
-        }, 300);
+        }
       });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
 
 
